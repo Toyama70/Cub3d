@@ -1,0 +1,79 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/02 16:18:03 by yasinbest         #+#    #+#             */
+/*   Updated: 2022/02/04 19:06:03 by yasinbest        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "cub3d.h"
+
+void	ft_setrange(t_range *range, char *path, char **tab)
+{
+	int fd;
+	int cursor;
+	char *line;
+	int len = 0;
+
+	cursor = 0;
+	fd = open(path, O_RDWR);
+	int i = 0;
+	int k = 0;
+	while((line = get_next_line(fd)))
+	{
+		if (strlen(line) > len)
+			len = strlen(line);
+		i++;
+	}
+	close(fd);
+	tab = malloc(sizeof(char *) * i);
+	while (k < i)
+	{
+		tab[i] = calloc(sizeof(char), len);
+		k++;
+	}
+		
+/*	fd = open(path, O_RDWR);
+	while((line = get_next_line(fd)))
+		i++;
+*/	/*
+	ft_skipline(&cursor, fd);
+
+	for (int i = 0; i < 10; i++)
+	{
+		printf("%s", get_next_line(fd));
+	}*/
+
+}
+
+/*
+void ft_parsemap(char *line, char **tab)
+{
+	int i = 0;
+	int fd; 
+	
+	fd = open(str, O_RDWR);
+	while()
+}
+*/
+
+void	ft_maphandler(t_range *range, char *path, char **tab, t_game *game)
+{
+	char *line;
+
+	line = NULL;
+	ft_setrange(range, path, tab);
+}
+
+int main(int argc, char **argv)
+{
+	t_game game;
+	char **tab;
+	t_range range;
+
+	game.argc = argc;
+	ft_maphandler(&range, argv[1], tab, &game);
+}
