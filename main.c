@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:18:03 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/08 13:17:15 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/08 13:48:45 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -51,17 +51,6 @@ void	ft_setrange(t_range *range, char *path, char **tab, t_game *game)
 
 }
 
-/*
-void ft_parsemap(char *line, char **tab)
-{
-	int i = 0;
-	int fd; 
-	
-	fd = open(str, O_RDWR);
-	while()
-}
-*/
-
 void	ft_maphandler(t_range *range, char *path, char **tab, t_game *game)
 {
 	char *line;
@@ -78,6 +67,4 @@ int main(int argc, char **argv)
 
 	game.argc = argc;
 	ft_maphandler(&range, argv[1], tab, &game);
-
-	printf("gamefloor = %x\n", game.floor);
 }

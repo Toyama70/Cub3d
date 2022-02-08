@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/08 13:20:40 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/08 13:49:35 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -57,12 +57,6 @@ void	ft_maketxtr(char **tab, int i, int k, t_game *game)
 		start++;
 		i++;
 	}
-
-printf("%s", game->txtr[0]);
-printf("%s", game->txtr[1]);
-printf("%s", game->txtr[2]);
-printf("%s", game->txtr[3]);
-
 }
 
 void	ft_dividein3(char **tab, t_game *game, int len)
