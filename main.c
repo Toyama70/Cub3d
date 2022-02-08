@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:18:03 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/07 15:33:10 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/08 13:17:15 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -78,4 +78,6 @@ int main(int argc, char **argv)
 
 	game.argc = argc;
 	ft_maphandler(&range, argv[1], tab, &game);
+
+	printf("gamefloor = %x\n", game.floor);
 }

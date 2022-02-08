@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/07 17:03:54 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/08 13:20:40 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -62,7 +62,6 @@ printf("%s", game->txtr[0]);
 printf("%s", game->txtr[1]);
 printf("%s", game->txtr[2]);
 printf("%s", game->txtr[3]);
-	//ft_cleanpath (game);
 
 }
 
@@ -70,6 +69,7 @@ void	ft_dividein3(char **tab, t_game *game, int len)
 {
 	int i = 0;
 	int k = 0;
+	
 	while(i < game->maphei)
 	{
 		while(k < game->maplen)
@@ -85,6 +85,39 @@ void	ft_dividein3(char **tab, t_game *game, int len)
 		i++;
 	}
 
+	i = 0;
+	k = 0;
+	while(i < game->maphei)
+	{
+		while(k < game->maplen)
+		{
+			if (tab[i][k] == 'F' && tab[i][k+1] == ' ')
+			{
+				ft_makefloor(tab, i, k, game);
+				break;
+			}
+			k++;
+		}
+		k = 0;
+		i++;
+	}
+	
+	i = 0;
+	k = 0;
+	while(i < game->maphei)
+	{
+		while(k < game->maplen)
+		{
+			if (tab[i][k] == 'C' && tab[i][k+1] == ' ')
+			{
+				ft_makeceiling(tab, i, k, game);
+				break;
+			}
+			k++;
+		}
+		k = 0;
+		i++;
+	}
 }
 
 
