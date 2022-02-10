@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/08 18:14:25 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/10 12:17:46 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -68,18 +68,12 @@ void	ft_dividemap(int i, int k, char **tab, t_game *game)
 	i = game->lowhei + 1;
 	rest = (game->maphei - i) + 1;
 	game->map = ft_calloc(sizeof(char *), rest);	
-	
-	printf("i = %d\n", i);
-	printf("rest = %d\n", rest);
-	printf("k = %d\n", k);
-
 	while (k < rest)
 	{
 		game->map[k] = ft_calloc(sizeof(char), game->maplen);
 		k++;
 	}
 	k = 0;
-
 	while(i < game->maphei)
 	{
 		while(k < game->maplen)
@@ -91,23 +85,6 @@ void	ft_dividemap(int i, int k, char **tab, t_game *game)
 		i++;
 		m++;
 	}
-	
-	printf("line = %s", game->map[1]);
-	printf("line = %s", game->map[2]);
-	printf("line = %s", game->map[3]);
-	printf("line = %s", game->map[4]);
-	printf("line = %s", game->map[5]);
-	printf("line = %s", game->map[6]);
-	printf("line = %s", game->map[7]);
-	printf("line = %s", game->map[8]);
-	printf("line = %s", game->map[9]);
-	printf("line = %s", game->map[10]);
-	printf("line = %s", game->map[11]);
-	printf("line = %s", game->map[12]);
-	printf("line = %s", game->map[13]);
-	printf("line = %s", game->map[14]);
-	printf("line = %s", game->map[15]);
-
 }
 
 void	ft_dividein3(char **tab, t_game *game, int len)
@@ -122,7 +99,7 @@ void	ft_dividein3(char **tab, t_game *game, int len)
 	ft_dividefloor(i, k, tab, game);
 	ft_divideceiling(i, k, tab, game);
 	ft_dividemap(i, k, tab, game);	
-
+	// I NEED TO ADD A FREE FUNCTION FOR THE TAB 2DArray
 }
 
 

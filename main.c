@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:18:03 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/08 17:20:05 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/10 12:16:08 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -68,5 +68,4 @@ int main(int argc, char **argv)
 	game.lowhei = 0;
 	game.argc = argc;
 	ft_maphandler(&range, argv[1], tab, &game);
-	printf("lowhei = %d\n", game.lowhei);
 }
