@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:07:46 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/08 17:52:47 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/11 11:38:59 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -41,15 +41,14 @@ typedef struct s_game {
 	t_range range;
 	t_parser parser;
 	char	**txtr;
-	//char	**flocel;
 	int		floor;
 	int		ceiling;
 	char	**map;
-	int argc;
+	int		argc;
 	int		maplen;
 	int		maphei;
 	int		lowhei;
-	
+	int 	playercount;
 } t_game;
 
 char		*ft_strjoin(char const *s1, char const *s2);
@@ -67,15 +66,24 @@ void		ft_checkprechar(char c);
 void		ft_dividein3(char **tab, t_game *game, int len);
 int			ft_skipline(int *ln, int fd);
 
+void	ft_checkchar(char c);
+void		ft_exception(char **tab, t_game *game, int len);
 void ft_dividetxtr(int i, int k, char **tab, t_game *game);
 int	create_rgb(int r, int g, int b);
-void	ft_maketxtr(char **tab, int i, int k, t_game *game);
 
+void	ft_cleanpath(char **tab, int ln, int tx, t_game *game);
 void	ft_divideceiling(int i, int k, char **tab, t_game *game);
 void	ft_dividefloor(int i, int k, char **tab, t_game *game);
 void	ft_makefloor(char **tab, int i, int k, t_game *game);
 void	ft_makeceiling(char **tab, int i, int k, t_game *game);
 void	ft_dividemap(int i, int k, char **tab, t_game *game);
 
+void	ft_checkcount(char c, t_game *game);
+void	ft_checkwall(char c, int i, int k, t_game *game);
+void	ft_error(t_game *game, int len);
+void	ft_divideno(int i, int k, char **tab, t_game *game);
+void	ft_divideso(int i, int k, char **tab, t_game *game);
+void	ft_divideea(int i, int k, char **tab, t_game *game);
+void	ft_dividewe(int i, int k, char **tab, t_game *game);
 
 #endif

@@ -6,57 +6,25 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/10 12:17:46 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/10 15:34:28 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
-void	ft_cleanpath(int ln, t_game *game)
+void	ft_cleanpath(char **tab, int ln, int tx, t_game *game)
 {
 	int i = 0;
 	int k = 0;
-	char *temp;
-   
-	temp = game->txtr[ln];
-	while(game->txtr[ln][i] != '.')
+	
+	while(tab[ln][i] != '.')
 		i++;
-	while(game->txtr[ln][i] != 0)
+	while(tab[ln][i] != 0 && tab[ln][i] != '\n')
 	{
-		temp[k] = game->txtr[ln][i];
-		if (temp[k] == '\n')
-		{
-			temp[k + 1] = 0;
-			break;
-		}
+		game->txtr[tx][k] = tab[ln][i];
 	   	i++;
 		k++;
 	}
-	i = 0;
-	k = 0;
-	while (temp[k] != 0)
-	{
-		game->txtr[ln][i] = temp[k];
-		i++;
-		k++;
-	}
-	game->txtr[ln][i] = 0;
-}
-
-void	ft_maketxtr(char **tab, int i, int k, t_game *game)
-{
-	int range;
-	int start = 0;
-
-	range = i + 4;
-	game->txtr = malloc(sizeof(char *) * 4); //I could set that in a initiate
-	game->txtr = ft_calloc(sizeof(char), game->maplen);
-	while (start < 4)
-	{
-		game->txtr[start] = tab[i];
-		ft_cleanpath (start, game);
-		start++;
-		i++;
-	}
+	game->txtr[tx][k] = 0;
 }
 
 void	ft_dividemap(int i, int k, char **tab, t_game *game)
@@ -94,12 +62,22 @@ void	ft_dividein3(char **tab, t_game *game, int len)
 	
 	i = 0;
 	k = 0;
-
-	ft_dividetxtr(i, k, tab, game);
+	game->txtr = malloc(sizeof(char *) * 4); //I could set that in a initiate
+	
+	for(int turn = 0; turn < 4 ; turn++)
+		game->txtr[turn] = ft_calloc(sizeof(char), game->maplen + 1);
+	
+	
+	ft_divideno(i, k, tab, game);
+	ft_divideso(i, k, tab, game);
+	ft_dividewe(i, k, tab, game);
+	ft_divideea(i, k, tab, game);
 	ft_dividefloor(i, k, tab, game);
 	ft_divideceiling(i, k, tab, game);
 	ft_dividemap(i, k, tab, game);	
 	// I NEED TO ADD A FREE FUNCTION FOR THE TAB 2DArray
+
+
 }
 
 

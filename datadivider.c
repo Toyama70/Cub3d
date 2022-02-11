@@ -6,12 +6,12 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:25:51 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/08 17:43:12 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/10 15:19:02 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
-void ft_dividetxtr(int i, int k, char **tab, t_game *game)
+void ft_divideno(int i, int k, char **tab, t_game *game)
 {
 	while(i < game->maphei)
 	{
@@ -19,7 +19,71 @@ void ft_dividetxtr(int i, int k, char **tab, t_game *game)
 		{
 			if (tab[i][k] == 'N' && tab[i][k+1] == 'O')
 			{
-				ft_maketxtr(tab, i, k, game);
+				ft_cleanpath(tab, i, 0, game);
+
+				if (i > game->lowhei)
+					game->lowhei = i;
+				break;
+			}
+			k++;
+		}
+		k = 0;
+		i++;
+	}
+}
+
+void ft_divideso(int i, int k, char **tab, t_game *game)
+{
+	while(i < game->maphei)
+	{
+		while(k < game->maplen)
+		{
+			if (tab[i][k] == 'S' && tab[i][k+1] == 'O')
+			{
+				ft_cleanpath(tab, i, 1, game);
+
+				if (i > game->lowhei)
+					game->lowhei = i;
+				break;
+			}
+			k++;
+		}
+		k = 0;
+		i++;
+	}
+}
+
+void ft_divideea(int i, int k, char **tab, t_game *game)
+{
+	while(i < game->maphei)
+	{
+		while(k < game->maplen)
+		{
+			if (tab[i][k] == 'E' && tab[i][k+1] == 'A')
+			{
+				ft_cleanpath(tab, i, 2, game);
+
+				if (i > game->lowhei)
+					game->lowhei = i;
+				break;
+			}
+			k++;
+		}
+		k = 0;
+		i++;
+	}
+}
+
+void ft_dividewe(int i, int k, char **tab, t_game *game)
+{
+	while(i < game->maphei)
+	{
+		while(k < game->maplen)
+		{
+			if (tab[i][k] == 'W' && tab[i][k+1] == 'E')
+			{
+				ft_cleanpath(tab, i, 3, game);
+
 				if (i > game->lowhei)
 					game->lowhei = i;
 				break;

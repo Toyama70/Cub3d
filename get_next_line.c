@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:35:42 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/03 14:54:49 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/10 14:14:17 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -84,7 +84,7 @@ char	*chargebuff(int fd, char *buffer, int BUFFER_SIZE)
 		if (read_byte == -1)
 		{
 			free(tmp);
-			printf("error");
+			printf("Error\n");
 			exit(1);
 		}
 		ft_contentinvalid(tmp);
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 	buffer_size = 1;
 	if (fd < 0 || read(fd, 0, 0) < 0 || buffer_size < 1)
 	{
-		printf("error");
+		printf("Error\n");
 		exit(1);
 	}
 	buffer = chargebuff(fd, buffer, buffer_size);
