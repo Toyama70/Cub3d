@@ -6,21 +6,20 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:25:51 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/10 15:19:02 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/14 18:10:09 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
 void ft_divideno(int i, int k, char **tab, t_game *game)
 {
-	while(i < game->maphei)
+	while (i < game->maphei)
 	{
-		while(k < game->maplen)
+		while (k < game->maplen)
 		{
 			if (tab[i][k] == 'N' && tab[i][k+1] == 'O')
 			{
 				ft_cleanpath(tab, i, 0, game);
-
 				if (i > game->lowhei)
 					game->lowhei = i;
 				break;
@@ -34,9 +33,9 @@ void ft_divideno(int i, int k, char **tab, t_game *game)
 
 void ft_divideso(int i, int k, char **tab, t_game *game)
 {
-	while(i < game->maphei)
+	while (i < game->maphei)
 	{
-		while(k < game->maplen)
+		while (k < game->maplen)
 		{
 			if (tab[i][k] == 'S' && tab[i][k+1] == 'O')
 			{
@@ -55,9 +54,9 @@ void ft_divideso(int i, int k, char **tab, t_game *game)
 
 void ft_divideea(int i, int k, char **tab, t_game *game)
 {
-	while(i < game->maphei)
+	while (i < game->maphei)
 	{
-		while(k < game->maplen)
+		while (k < game->maplen)
 		{
 			if (tab[i][k] == 'E' && tab[i][k+1] == 'A')
 			{
@@ -76,9 +75,9 @@ void ft_divideea(int i, int k, char **tab, t_game *game)
 
 void ft_dividewe(int i, int k, char **tab, t_game *game)
 {
-	while(i < game->maphei)
+	while (i < game->maphei)
 	{
-		while(k < game->maplen)
+		while (k < game->maplen)
 		{
 			if (tab[i][k] == 'W' && tab[i][k+1] == 'E')
 			{
@@ -97,9 +96,9 @@ void ft_dividewe(int i, int k, char **tab, t_game *game)
 
 void	ft_dividefloor(int i, int k, char **tab, t_game *game)
 {
-	while(i < game->maphei)
+	while (i < game->maphei)
 	{
-		while(k < game->maplen)
+		while (k < game->maplen)
 		{
 			if (tab[i][k] == 'F' && tab[i][k+1] == ' ')
 			{
@@ -117,9 +116,9 @@ void	ft_dividefloor(int i, int k, char **tab, t_game *game)
 	
 void	ft_divideceiling(int i, int k, char **tab, t_game *game)
 {
-	while(i < game->maphei)
+	while (i < game->maphei)
 	{
-		while(k < game->maplen)
+		while (k < game->maplen)
 		{
 			if (tab[i][k] == 'C' && tab[i][k+1] == ' ')
 			{

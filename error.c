@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:07:06 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/11 11:52:20 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/14 18:15:58 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -44,42 +44,37 @@ void	ft_checkcount(char c, t_game *game)
 		game->playercount++;
 }
 
+void	ft_maperror()
+{
+	printf("ERROR wall or hole in map ? \n");
+	exit(1);
+}
 void	ft_checkwall(char c, int i, int k, t_game *game)
 {
-/*	int end = 0;
-
-	while (game->map[end][0] != 0)
-		end++;*/
 	if (c == '0' || c == 'N' || c == 'E' || c == 'W' || c == 'S')
 	{
-		if (game->map[i][k-1] != '0' && game->map[i][k-1] != '1' && game->map[i][k-1] != 'N' && game->map[i][k-1] != 'W' && game->map[i][k-1] != 'E' && game->map[i][k-1] != 'S')
-			{
-				printf("ERROR wall or hole in map ? \n");
-				exit(1);
-			}
-		if (game->map[i][k+1] != '0' && game->map[i][k+1] != '1' && game->map[i][k+1] != 'N' && game->map[i][k+1] != 'W' && game->map[i][k+1] != 'E' && game->map[i][k+1] != 'S')
-			{
-				printf("ERROR wall or hole in map ? \n");
-				exit(1);
-			}
-		if (game->map[i-1][k] != '0' && game->map[i-1][k] != '1' && game->map[i-1][k] != 'N' && game->map[i-1][k] != 'W' && game->map[i-1][k] != 'E' && game->map[i-1][k] != 'S')
-			{
-				printf("ERROR wall or hole in map ? \n");
-				exit(1);
-			}
-		if (game->map[i+1][k] != '0' && game->map[i+1][k] != '1' && game->map[i+1][k] != 'N' && game->map[i+1][k] != 'W' && game->map[i+1][k] != 'E' && game->map[i+1][k] != 'S')
-			{
-				printf("ERROR wall or hole in map ? \n");
-				exit(1);
-			}
+		if (game->map[i][k-1] != '0' && game->map[i][k-1] != '1' && 
+				game->map[i][k-1] != 'N' && game->map[i][k-1] != 'W' && 
+				game->map[i][k-1] != 'E' && game->map[i][k-1] != 'S')
+			ft_maperror();
+		if (game->map[i][k+1] != '0' && game->map[i][k+1] != '1' && 
+				game->map[i][k+1] != 'N' && game->map[i][k+1] != 'W' && 
+				game->map[i][k+1] != 'E' && game->map[i][k+1] != 'S')
+			ft_maperror();
+		if (game->map[i-1][k] != '0' && game->map[i-1][k] != '1' && 
+				game->map[i-1][k] != 'N' && game->map[i-1][k] != 'W' && 
+				game->map[i-1][k] != 'E' && game->map[i-1][k] != 'S')
+			ft_maperror();
+		if (game->map[i+1][k] != '0' && game->map[i+1][k] != '1' && 
+				game->map[i+1][k] != 'N' && game->map[i+1][k] != 'W' && 
+				game->map[i+1][k] != 'E' && game->map[i+1][k] != 'S')
+			ft_maperror();
 	}
 }
 
 void	ft_error(t_game *game, int len)
 {
 	ft_forbiddenmap(game);
-
-
 }
 
 void	ft_contentinvalid(char *str)
@@ -88,10 +83,7 @@ void	ft_contentinvalid(char *str)
 
 	i = 0;
 	while (str[i] != 0 && str[i] != '\n')
-	{
-		//ft_checkprechar(str[i]);
 		i++;
-	}
 }
 
 void	ft_checkchar(char c)
