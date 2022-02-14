@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/10 15:34:28 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/14 12:22:38 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -26,6 +26,7 @@ void	ft_cleanpath(char **tab, int ln, int tx, t_game *game)
 	}
 	game->txtr[tx][k] = 0;
 }
+
 
 void	ft_dividemap(int i, int k, char **tab, t_game *game)
 {
@@ -77,9 +78,9 @@ void	ft_dividein3(char **tab, t_game *game, int len)
 	ft_dividemap(i, k, tab, game);	
 	// I NEED TO ADD A FREE FUNCTION FOR THE TAB 2DArray
 
+	free_tab(tab);
 
 }
-
 
 
 

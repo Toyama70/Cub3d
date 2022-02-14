@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:07:46 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/11 11:38:59 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/14 11:23:55 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -66,6 +66,7 @@ void		ft_checkprechar(char c);
 void		ft_dividein3(char **tab, t_game *game, int len);
 int			ft_skipline(int *ln, int fd);
 
+void	free_tab(char **tab);
 void	ft_checkchar(char c);
 void		ft_exception(char **tab, t_game *game, int len);
 void ft_dividetxtr(int i, int k, char **tab, t_game *game);
