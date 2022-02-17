@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:18:03 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/14 18:26:20 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/16 17:50:19 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -61,6 +61,7 @@ void	ft_setup(char **tab, t_game *game, int len)
 void	ft_maphandler(char *path, char **tab, t_game *game)
 {
 	ft_setrange(path, tab, game);
+	ft_matrix(game);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 12:24:53 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/14 18:37:37 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/16 17:18:26 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -31,25 +31,37 @@ void	ft_makefloor(char **tab, int i, int k, t_game *game) // need to rewrite and
 			k++;
 		while (tab[i][k] != ',' && tab[i][k] != ' ')
 			r[m++] = tab[i][k++];
-		//r[m] = 0; //Could be deleted, but could cause issues maybe, have to try
 		m = 0;
 		while (tab[i][k] == ' ' || tab[i][k] == ',')
 			k++;
 		while (tab[i][k] != ',' && tab[i][k] != ' ')
 			g[m++] = tab[i][k++];
-		//g[m] = 0;
 		m = 0;
 		while (tab[i][k] == ' ' || tab[i][k] == ',')
 			k++;
 		while (tab[i][k] != ',' && tab[i][k] != ' ' && tab[i][k] != '\n')
 			b[m++] = tab[i][k++];
-		//b[m] = 0;
 	}
 	game->floor = create_rgb(atoi(r), atoi(g), atoi(b));
 }
 
+void	ft_rgbinvalid(char **tab, int i, int m)
+{
+	while (tab[i][m] != 0 && tab[i][m] != '\n')
+	{
+		if (tab[i][m] > 57 || tab[i][m] < 48)
+		{
+			if (tab[i][m] != ' ' && tab[i][m] != ',')
+			{
+				printf("Error : invalid RGB value\n");
+				exit(1);
+			}
+		}
+		m++;
+	}
+}
 
-void	ft_makeceiling(char **tab, int i, int k, t_game *game) // need to rewrite and optimize
+void	ft_makeceiling(char **tab, int i, int k, t_game *game)
 {
 	char r[4];
 	char g[4];

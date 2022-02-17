@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/14 12:22:38 by ybestrio         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:32:11 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -68,7 +68,6 @@ void	ft_dividein3(char **tab, t_game *game, int len)
 	for(int turn = 0; turn < 4 ; turn++)
 		game->txtr[turn] = ft_calloc(sizeof(char), game->maplen + 1);
 	
-	
 	ft_divideno(i, k, tab, game);
 	ft_divideso(i, k, tab, game);
 	ft_dividewe(i, k, tab, game);
@@ -77,13 +76,70 @@ void	ft_dividein3(char **tab, t_game *game, int len)
 	ft_divideceiling(i, k, tab, game);
 	ft_dividemap(i, k, tab, game);	
 	// I NEED TO ADD A FREE FUNCTION FOR THE TAB 2DArray
-
+	ft_verifrgb(tab, i, k, game);
 	free_tab(tab);
 
 }
 
+void	ft_locatefloor(char **tab, int i, int k, t_game *game)
+{
+	while (i < game->maphei)
+	{
+		while (tab[i][k] != '\n')
+		{
+			if (tab[i][k] == 'F' && tab[i][k+1] == ' ')
+			{
+				ft_rgbinvalid(tab, i, k + 1);
+				ft_checkfloor(tab, i, 0, game);
+				break;
+			}
+			k++;
+		}
+		k = 0;
+		i++;
+	}
+}
 
+void	ft_locateceiling(char **tab, int i, int k, t_game *game)
+{
+	while (i < game->maphei)
+	{
+		while (tab[i][k] != '\n')
+		{
+			if (tab[i][k] == 'C' && tab[i][k+1] == ' ')
+			{
+				ft_rgbinvalid(tab, i, k + 1);
+				ft_checkceiling(tab, i, 0, game);
+				break;
+			}
+			k++;
+		}
+		k = 0;
+		i++;
+	}
+}
 
+void	ft_verifrgb(char **tab, int i, int k, t_game *game)
+{
+	ft_locatefloor(tab, i, k, game);
+	ft_locateceiling(tab, i, k, game);
+	//ft_checkfloor(tab, i, k, game);
+//	ft_checkceiling(tab, i, k, game);
+}
+
+void ft_rgbsize(int r, int g, int b)
+{
+	if (r > 255 || g > 255 || b > 255)
+	{
+		printf("Error RGB is too big ?\n");
+		exit(1);
+	}
+	if (r < 0 || g < 0 || b < 0)
+	{
+		printf("Error RGB is too small ?\n");
+		exit(1);
+	}
+}
 
 int ft_skipline(int *ln, int fd)
 {
@@ -99,4 +155,72 @@ int ft_skipline(int *ln, int fd)
 
 	return 0;
 
+}
+
+
+void	ft_checkfloor(char **tab, int i, int k, t_game *game) // need to rewrite and optimize
+{
+	char r[40];
+	char g[40];
+	char b[40];
+	int m;
+	
+	m = 0;
+	if (tab[i][k] == 'F')
+	{
+		k++;
+		while (tab[i][k] == ' ')
+			k++;
+		while (tab[i][k] != ',' && tab[i][k] != ' ')
+			r[m++] = tab[i][k++];
+		r[m] = 0;
+		m = 0;
+		while (tab[i][k] == ' ' || tab[i][k] == ',')
+			k++;
+		while (tab[i][k] != ',' && tab[i][k] != ' ')
+			g[m++] = tab[i][k++];
+		g[m] = 0;
+		m = 0;
+		while (tab[i][k] == ' ' || tab[i][k] == ',')
+			k++;
+		while (tab[i][k] != ',' && tab[i][k] != ' ' && tab[i][k] != '\n')
+			b[m++] = tab[i][k++];
+		b[m] = 0;
+	}
+	ft_rgbsize(atoi(r), atoi(g), atoi(b));
+}
+
+void	ft_checkceiling(char **tab, int i, int k, t_game *game) // need to rewrite and optimize
+{
+	char r[40];
+	char g[40];
+	char b[40];
+	int m;
+	
+	m = 0;
+	if (tab[i][k] == 'C')
+	{
+		k++;
+		while (tab[i][k] == ' ')
+			k++;
+		while (tab[i][k] != ',' && tab[i][k] != ' ')
+			r[m++] = tab[i][k++];
+		r[m] = 0;
+		m = 0;
+		while (tab[i][k] == ' ' || tab[i][k] == ',')
+			k++;
+		while (tab[i][k] != ',' && tab[i][k] != ' ')
+			g[m++] = tab[i][k++];
+		g[m] = 0;
+		m = 0;
+		while (tab[i][k] == ' ' || tab[i][k] == ',')
+			k++;
+		while (tab[i][k] != ',' && tab[i][k] != ' ' && tab[i][k] != '\n')
+			b[m++] = tab[i][k++];
+		b[m] = 0;
+	}
+	printf("r = %s\n", r);
+	printf("g = %s\n", g);
+	printf("b = %s\n", b);
+	ft_rgbsize(atoi(r), atoi(g), atoi(b));
 }

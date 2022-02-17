@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:07:46 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/14 18:39:15 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/16 18:00:40 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -21,12 +21,25 @@
 #include <math.h>
 #include <fcntl.h>
 
-typedef struct s_parser {
-	char	**points;
-} t_parser;
+typedef struct s_comp {
+	void	*img;
+	char	*addr;
+	int		w;
+	int		h;
+	int		bpp;
+	int		l_l;
+	int		endian;
+
+}			t_comp;
+
 
 typedef struct s_game {
-	t_parser parser;
+	void	*mlx;
+	void	*wim;
+	t_comp	wall_no;
+	t_comp	wall_so;
+	t_comp	wall_ea;
+	t_comp	wall_we;
 	char	**txtr;
 	int		floor;
 	int		ceiling;
@@ -38,6 +51,7 @@ typedef struct s_game {
 	int 	playercount;
 } t_game;
 
+void		ft_matrix(t_game *game);
 char		*ft_strjoin(char const *s1, char const *s2);
 void		ft_bzero(void *s, size_t n);
 size_t		ft_strlen(const char *theString);
@@ -52,18 +66,24 @@ void		ft_contentinvalid(char *str);
 void		ft_checkprechar(char c);
 int			ft_skipline(int *ln, int fd);
 
+void	ft_locatefloor(char **tab, int i, int k, t_game *game);
+void	ft_locateceiling(char **tab, int i, int k, t_game *game);
 void	free_tab(char **tab);
 void	ft_checkchar(char c);
 void	ft_exception(char **tab, t_game *game, int len);
 int		create_rgb(int r, int g, int b);
+void	ft_verifrgb(char **tab, int i, int k, t_game *game);
 
 void	ft_cleanpath(char **tab, int ln, int tx, t_game *game);
+void	ft_checkfloor(char **tab, int i, int k, t_game *game); // need to rewrite and optimize
+void	ft_checkceiling(char **tab, int i, int k, t_game *game);
 
 void	ft_setup(char **tab, t_game *game, int len);
 void	ft_checkcount(char c, t_game *game);
 void	ft_checkwall(char c, int i, int k, t_game *game);
 void	ft_error(t_game *game, int len);
-
+void	ft_rgbinvalid(char **tab, int i, int m);
+void	ft_rgbsize(int r, int g, int b);
 /* Dividers */
 
 void	ft_divideceiling(int i, int k, char **tab, t_game *game);
