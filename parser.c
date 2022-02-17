@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/16 17:32:11 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/17 10:46:38 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -56,7 +56,7 @@ void	ft_dividemap(int i, int k, char **tab, t_game *game)
 	}
 }
 
-void	ft_dividein3(char **tab, t_game *game, int len)
+void	ft_dividein3(char **tab, t_game *game)
 {
 	int i;
 	int k;
@@ -65,7 +65,7 @@ void	ft_dividein3(char **tab, t_game *game, int len)
 	k = 0;
 	game->txtr = malloc(sizeof(char *) * 4); //I could set that in a initiate
 	
-	for(int turn = 0; turn < 4 ; turn++)
+	for(int turn = 0; turn < 4 ; turn++) //supprimer ce for
 		game->txtr[turn] = ft_calloc(sizeof(char), game->maplen + 1);
 	
 	ft_divideno(i, k, tab, game);
@@ -90,7 +90,7 @@ void	ft_locatefloor(char **tab, int i, int k, t_game *game)
 			if (tab[i][k] == 'F' && tab[i][k+1] == ' ')
 			{
 				ft_rgbinvalid(tab, i, k + 1);
-				ft_checkfloor(tab, i, 0, game);
+				ft_checkfloor(tab, i, 0);
 				break;
 			}
 			k++;
@@ -109,7 +109,7 @@ void	ft_locateceiling(char **tab, int i, int k, t_game *game)
 			if (tab[i][k] == 'C' && tab[i][k+1] == ' ')
 			{
 				ft_rgbinvalid(tab, i, k + 1);
-				ft_checkceiling(tab, i, 0, game);
+				ft_checkceiling(tab, i, 0);
 				break;
 			}
 			k++;
@@ -141,9 +141,8 @@ void ft_rgbsize(int r, int g, int b)
 	}
 }
 
-int ft_skipline(int *ln, int fd)
+int ft_skipline(int fd)
 {
-	int i = 0;
 	char *line;
 
 	while (1)
@@ -158,7 +157,7 @@ int ft_skipline(int *ln, int fd)
 }
 
 
-void	ft_checkfloor(char **tab, int i, int k, t_game *game) // need to rewrite and optimize
+void	ft_checkfloor(char **tab, int i, int k) // need to rewrite and optimize
 {
 	char r[40];
 	char g[40];
@@ -190,7 +189,7 @@ void	ft_checkfloor(char **tab, int i, int k, t_game *game) // need to rewrite an
 	ft_rgbsize(atoi(r), atoi(g), atoi(b));
 }
 
-void	ft_checkceiling(char **tab, int i, int k, t_game *game) // need to rewrite and optimize
+void	ft_checkceiling(char **tab, int i, int k) // need to rewrite and optimize
 {
 	char r[40];
 	char g[40];

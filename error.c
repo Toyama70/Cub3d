@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:07:06 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/14 18:15:58 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/17 10:47:01 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -72,7 +72,7 @@ void	ft_checkwall(char c, int i, int k, t_game *game)
 	}
 }
 
-void	ft_error(t_game *game, int len)
+void	ft_error(t_game *game)
 {
 	ft_forbiddenmap(game);
 }

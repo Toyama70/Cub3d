@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:18:03 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/16 17:50:19 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/17 11:31:37 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -53,9 +53,9 @@ void	ft_setrange(char *path, char **tab, t_game *game)
 
 void	ft_setup(char **tab, t_game *game, int len)
 {
-	ft_exception(tab, game, len);
-	ft_dividein3(tab, game, len);
-	ft_error(game, len);
+//	ft_exception(tab, game, len);
+	ft_dividein3(tab, game);
+	ft_error(game);
 }
 
 void	ft_maphandler(char *path, char **tab, t_game *game)
@@ -73,14 +73,15 @@ int	main(int argc, char **argv)
 	game.lowhei = 0;
 	game.argc = argc;
 	ft_maphandler(argv[1], tab, &game);
-
+/*
 	printf("%d\n", game.floor);
 	printf("%d\n", game.ceiling);
-/*	printf("%s\n", game.txtr[0]);
+	printf("%s\n", game.txtr[0]);
 	printf("%s\n", game.txtr[1]);
 	printf("%s\n", game.txtr[2]);
 	printf("%s\n", game.txtr[3]);
-
+*/
+	/*
 	printf("%s", game.map[0]);
 	printf("%s", game.map[1]);
 	printf("%s", game.map[2]);
@@ -91,8 +92,8 @@ int	main(int argc, char **argv)
 	printf("%s", game.map[7]);
 	printf("%s", game.map[8]);
 	printf("%s", game.map[9]);
-	printf("%s", game.map[10]);*/
-	free_tab(game.map);
+	printf("%s", game.map[10]);
+*/	free_tab(game.map);
 
 	//system("leaks a.out");
 

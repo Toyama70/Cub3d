@@ -6,16 +6,8 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:05:45 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/10 14:13:10 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/17 10:48:09 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
-void	ft_exception(char **tab, t_game *game, int len)
-{
-
-
-
-
-
-}

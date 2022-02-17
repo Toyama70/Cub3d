@@ -6,7 +6,7 @@
 /*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:50:59 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/16 18:03:57 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/17 11:38:46 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -46,6 +46,11 @@ void	ft_matrix(t_game *game)
 	t_comp	east;
 	t_comp	west;
 
+/**/
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, 800, 600, "cub3d");
+	mlx_loop(game->mlx);
+/**/
 	ft_fillnorth(game, &north, game->txtr[0]);
 	ft_fillsouth(game, &south, game->txtr[1]);
 	ft_filleast(game, &east, game->txtr[2]);
