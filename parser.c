@@ -3,51 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
+/*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/17 10:46:38 by ybestrio         ###   ########.fr       */
+/*   Updated: 2022/02/22 20:04:03 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
 
-void	ft_cleanpath(char **tab, int ln, int tx, t_game *game)
+void	ft_cleanpath(char **tab, int ln, int tx, t_data *data)
 {
-	int i = 0;
-	int k = 0;
-	
-	while(tab[ln][i] != '.')
+	int	i;
+	int	k;
+
+	i = 0;
+	k = 0;
+	while (tab[ln][i] != '.')
 		i++;
-	while(tab[ln][i] != 0 && tab[ln][i] != '\n')
+	while (tab[ln][i] != 0 && tab[ln][i] != '\n')
 	{
-		game->txtr[tx][k] = tab[ln][i];
-	   	i++;
+		data->txtr[tx][k] = tab[ln][i];
+		i++;
 		k++;
 	}
-	game->txtr[tx][k] = 0;
+	data->txtr[tx][k] = 0;
 }
 
-
-void	ft_dividemap(int i, int k, char **tab, t_game *game)
+void	ft_dividemap(int i, int k, char **tab, t_data *data)
 {
-	int rest;
-	int m;
-	
+	int	rest;
+	int	m;
+
 	m = 0;
-	i = game->lowhei + 1;
-	rest = (game->maphei - i) + 1;
-	game->map = ft_calloc(sizeof(char *), rest);	
+	i = data->lowhei + 1;
+	rest = (data->map_h - i) + 1;
+	data->map = ft_calloc(sizeof(char *), rest + 3);
 	while (k < rest)
 	{
-		game->map[k] = ft_calloc(sizeof(char), game->maplen);
+		data->map[k] = ft_calloc(sizeof(char), data->map_l);
 		k++;
 	}
 	k = 0;
-	while(i < game->maphei)
+	while (i < data->map_h)
 	{
-		while(k < game->maplen)
+		while (k < data->map_l)
 		{
-			game->map[m][k] = tab[i][k];
+			data->map[m][k] = tab[i][k];
 			k++;
 		}
 		k = 0;
@@ -56,42 +58,48 @@ void	ft_dividemap(int i, int k, char **tab, t_game *game)
 	}
 }
 
-void	ft_dividein3(char **tab, t_game *game)
+void	ft_setheight(int i, t_data *data)
 {
-	int i;
-	int k;
-	
-	i = 0;
-	k = 0;
-	game->txtr = malloc(sizeof(char *) * 4); //I could set that in a initiate
-	
-	for(int turn = 0; turn < 4 ; turn++) //supprimer ce for
-		game->txtr[turn] = ft_calloc(sizeof(char), game->maplen + 1);
-	
-	ft_divideno(i, k, tab, game);
-	ft_divideso(i, k, tab, game);
-	ft_dividewe(i, k, tab, game);
-	ft_divideea(i, k, tab, game);
-	ft_dividefloor(i, k, tab, game);
-	ft_divideceiling(i, k, tab, game);
-	ft_dividemap(i, k, tab, game);	
-	// I NEED TO ADD A FREE FUNCTION FOR THE TAB 2DArray
-	ft_verifrgb(tab, i, k, game);
-	free_tab(tab);
-
+	while (data->map[i] != 0)
+		i++;
+	data->map_h = i;
 }
 
-void	ft_locatefloor(char **tab, int i, int k, t_game *game)
+void	ft_dividein3(char **tab, t_data *data)
 {
-	while (i < game->maphei)
+	int	i;
+	int	k;
+	int	turn;
+
+	i = 0;
+	k = 0;
+	turn = -1;
+	data->txtr = malloc(sizeof(char *) * 4);
+	while (++turn < 4)
+		data->txtr[turn] = ft_calloc(sizeof(char), data->map_l + 1);
+	ft_divideno(i, k, tab, data);
+	ft_divideso(i, k, tab, data);
+	ft_dividewe(i, k, tab, data);
+	ft_divideea(i, k, tab, data);
+	ft_dividefloor(i, k, tab, data);
+	ft_divideceiling(i, k, tab, data);
+	ft_dividemap(i, k, tab, data);
+	ft_setheight(i, data);
+	ft_verifrgb(tab, i, k, data);
+	free_tab(tab);
+}
+
+void	ft_locatefloor(char **tab, int i, int k, t_data *data)
+{
+	while (i < data->map_h)
 	{
 		while (tab[i][k] != '\n')
 		{
-			if (tab[i][k] == 'F' && tab[i][k+1] == ' ')
+			if (tab[i][k] == 'F' && tab[i][k + 1] == ' ')
 			{
 				ft_rgbinvalid(tab, i, k + 1);
 				ft_checkfloor(tab, i, 0);
-				break;
+				break ;
 			}
 			k++;
 		}
@@ -100,17 +108,17 @@ void	ft_locatefloor(char **tab, int i, int k, t_game *game)
 	}
 }
 
-void	ft_locateceiling(char **tab, int i, int k, t_game *game)
+void	ft_locateceiling(char **tab, int i, int k, t_data *data)
 {
-	while (i < game->maphei)
+	while (i < data->map_h)
 	{
 		while (tab[i][k] != '\n')
 		{
-			if (tab[i][k] == 'C' && tab[i][k+1] == ' ')
+			if (tab[i][k] == 'C' && tab[i][k + 1] == ' ')
 			{
 				ft_rgbinvalid(tab, i, k + 1);
 				ft_checkceiling(tab, i, 0);
-				break;
+				break ;
 			}
 			k++;
 		}
@@ -119,15 +127,13 @@ void	ft_locateceiling(char **tab, int i, int k, t_game *game)
 	}
 }
 
-void	ft_verifrgb(char **tab, int i, int k, t_game *game)
+void	ft_verifrgb(char **tab, int i, int k, t_data *data)
 {
-	ft_locatefloor(tab, i, k, game);
-	ft_locateceiling(tab, i, k, game);
-	//ft_checkfloor(tab, i, k, game);
-//	ft_checkceiling(tab, i, k, game);
+	ft_locatefloor(tab, i, k, data);
+	ft_locateceiling(tab, i, k, data);
 }
 
-void ft_rgbsize(int r, int g, int b)
+void	ft_rgbsize(int r, int g, int b)
 {
 	if (r > 255 || g > 255 || b > 255)
 	{
@@ -141,29 +147,26 @@ void ft_rgbsize(int r, int g, int b)
 	}
 }
 
-int ft_skipline(int fd)
+int	ft_skipline(int fd)
 {
-	char *line;
+	char	*line;
 
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line[0] != '\n')
-			break;
+			break ;
 	}
-
-	return 0;
-
+	return (0);
 }
 
-
-void	ft_checkfloor(char **tab, int i, int k) // need to rewrite and optimize
+void	ft_checkfloor(char **tab, int i, int k) //faire rentrer une struct avec plein de int qui valent 0;
 {
-	char r[40];
-	char g[40];
-	char b[40];
-	int m;
-	
+	char	r[40];
+	char	g[40];
+	char	b[40];
+	int		m;
+
 	m = 0;
 	if (tab[i][k] == 'F')
 	{
@@ -189,7 +192,7 @@ void	ft_checkfloor(char **tab, int i, int k) // need to rewrite and optimize
 	ft_rgbsize(atoi(r), atoi(g), atoi(b));
 }
 
-void	ft_checkceiling(char **tab, int i, int k) // need to rewrite and optimize
+void	ft_checkceiling(char **tab, int i, int k)
 {
 	char r[40];
 	char g[40];
@@ -218,8 +221,5 @@ void	ft_checkceiling(char **tab, int i, int k) // need to rewrite and optimize
 			b[m++] = tab[i][k++];
 		b[m] = 0;
 	}
-	printf("r = %s\n", r);
-	printf("g = %s\n", g);
-	printf("b = %s\n", b);
 	ft_rgbsize(atoi(r), atoi(g), atoi(b));
 }

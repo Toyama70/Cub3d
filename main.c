@@ -3,98 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
+/*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 16:18:03 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/17 11:31:37 by ybestrio         ###   ########.fr       */
+/*   Created: 2022/02/03 10:24:27 by tmartial          #+#    #+#             */
+/*   Updated: 2022/02/22 18:43:37 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
 
+//pos joueur
+//vue pdt le spwan
 
-void	free_tab(char **tab)
+int	img_pix(t_img *img, int x, int y)
 {
-	size_t	i;
+	char	*ptr;
 
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
+	ptr = img->addr + (y * img->l_l + x * (img->bpp / 8));
+	return (*((int *)ptr));
 }
 
-void	ft_setrange(char *path, char **tab, t_game *game)
+int main(int argc, char **argv)
 {
-	int		fd;
-	char	*line;
-	int		len;
-	int		i;
-	
-	len = 0;
-	i = 0;
-	fd = open(path, O_RDWR);
-	while ((line = get_next_line(fd)))
+    t_data data;
+
+
+	yasin(&data, argc, argv);
+	data.press = 0;
+	data.mlx = mlx_init();
+	data.win = mlx_new_window(data.mlx, 800, 800, "cub3d");
+	data.img = mlx_new_image(data.mlx, 800, 800);
+	data.addr = mlx_get_data_addr(data.img, &data.b_pix, &data.len_pix, &data.endian);
+	data.map_l = 24;
+	data.map_h = 24;//a modifier ?/
+	data.north.img = mlx_xpm_file_to_image(data.mlx, "./north.xpm", &data.north.w, &data.north.h);
+	data.north.addr = mlx_get_data_addr(data.north.img, &data.north.bpp, &data.north.l_l, &data.north.endian);
+	data.south.img = mlx_xpm_file_to_image(data.mlx, "./south.xpm", &data.south.w, &data.south.h);
+	data.south.addr = mlx_get_data_addr(data.south.img, &data.south.bpp, &data.south.l_l, &data.south.endian);
+	data.west.img = mlx_xpm_file_to_image(data.mlx, "./west.xpm", &data.west.w, &data.west.h);
+	data.west.addr = mlx_get_data_addr(data.west.img, &data.west.bpp, &data.west.l_l, &data.west.endian);
+	data.east.img = mlx_xpm_file_to_image(data.mlx, "./east.xpm", &data.east.w, &data.east.h);
+	data.east.addr = mlx_get_data_addr(data.east.img, &data.east.bpp, &data.east.l_l, &data.east.endian);
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	make_player(&data);
+	mlx_hook(data.win, 2, 1L << 0, presskey, &data);
+   	mlx_hook(data.win, 3, 1L << 0, un_presskey, &data); 
+	mlx_hook(data.win, 17, 1L << 0, &exit_mlx, &data);
+	mlx_loop_hook(data.mlx, &move_player, &data);
+	mlx_loop(data.mlx);
+	//free_tab(data.map);*/
+}
+
+/* float i = 0;
+	float j = 0;
+	float x = 0;
+	float y = 0;
+	int color = 0;
+	while (j < 200)
 	{
-		if (strlen(line) > len)
-			len = strlen(line);
-		i++;
-		free(line);
-	}
-	close(fd);
-	game->maphei = i;
-	game->maplen = len;
-	tab = calloc(sizeof(char *), i + 1);
-	fd = open(path, O_RDWR); 
-	i = -1;
-	while ((line = get_next_line(fd)))
-		tab[++i] = line;
-	close(fd);
-	ft_setup(tab, game, len);
-}
-
-void	ft_setup(char **tab, t_game *game, int len)
-{
-//	ft_exception(tab, game, len);
-	ft_dividein3(tab, game);
-	ft_error(game);
-}
-
-void	ft_maphandler(char *path, char **tab, t_game *game)
-{
-	ft_setrange(path, tab, game);
-	ft_matrix(game);
-}
-
-
-int	main(int argc, char **argv)
-{
-	t_game	game;
-	char	**tab;
-	
-	game.lowhei = 0;
-	game.argc = argc;
-	ft_maphandler(argv[1], tab, &game);
-/*
-	printf("%d\n", game.floor);
-	printf("%d\n", game.ceiling);
-	printf("%s\n", game.txtr[0]);
-	printf("%s\n", game.txtr[1]);
-	printf("%s\n", game.txtr[2]);
-	printf("%s\n", game.txtr[3]);
-*/
-	/*
-	printf("%s", game.map[0]);
-	printf("%s", game.map[1]);
-	printf("%s", game.map[2]);
-	printf("%s", game.map[3]);
-	printf("%s", game.map[4]);
-	printf("%s", game.map[5]);
-	printf("%s", game.map[6]);
-	printf("%s", game.map[7]);
-	printf("%s", game.map[8]);
-	printf("%s", game.map[9]);
-	printf("%s", game.map[10]);
-*/	free_tab(game.map);
-
-	//system("leaks a.out");
-
-}
+		i = 0;
+		while (i < 200)
+		{
+			x = (i / 200.0) * data.w_n;
+			y = (j / 200.0) * data.h_n;
+			color = img_pix(&data, x, y);
+			my_mlx_pixel_put(&data, i, j, color);
+			i++;
+		}
+		j++;
+	}*/
