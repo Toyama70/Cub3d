@@ -6,7 +6,7 @@
 /*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:24:21 by tmartial          #+#    #+#             */
-/*   Updated: 2022/02/22 18:58:29 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/02/24 11:11:02 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *string, int searchedChar );
 size_t	ft_strlen(const char *theString);
 void	ft_bzero(void *s, size_t n);
+int		assign(t_gnl *gnl);
 
 /* gnl */
 char	*ft_couple(char *str1, char *str2);
@@ -179,6 +180,7 @@ void	ft_rgbsize(int r, int g, int b);
 /* utils */
 int		exit_mlx(t_data	*data);
 char	*ft_strdup(const char *s1);
+void	ft_setgnl(t_gnl *gnl, char *path);
 
 /* raycast */
 void 	init_raycast(t_ray *ray, t_data *data);
