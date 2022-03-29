@@ -6,7 +6,7 @@
 /*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:25:51 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/21 10:54:11 by tmartial         ###   ########.fr       */
+/*   Updated: 2022/03/29 15:07:15 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,20 @@ void ft_dividewe(int i, int k, char **tab, t_data *data)
 	}
 }
 
+
+int	ft_incomplete(int i, int k, char **tab)
+{
+	while (tab[i][k] != '\n')
+	{
+		k++;
+		if (tab[i][k] != ' ')
+			return (0);
+		else if (tab[i][k] == ' ' && tab[i][k + 1] == '\n')
+			return (1);
+	}
+	return (1);
+}
+
 void	ft_dividefloor(int i, int k, char **tab, t_data *data)
 {
 	while (i < data->map_h)
@@ -103,6 +117,11 @@ void	ft_dividefloor(int i, int k, char **tab, t_data *data)
 		{
 			if (tab[i][k] == 'F' && tab[i][k+1] == ' ')
 			{
+				if (ft_incomplete(i, k, tab) == 1)
+				{
+					printf("Error with RGB input ?");
+					exit(1);
+				}
 				ft_makefloor(tab, i, k, data);
 				if (i > data->lowhei)
 					data->lowhei = i;
@@ -113,7 +132,6 @@ void	ft_dividefloor(int i, int k, char **tab, t_data *data)
 		k = 0;
 		i++;
 	}
-//	ft_checkrgb();
 }
 	
 void	ft_divideceiling(int i, int k, char **tab, t_data *data)
@@ -124,6 +142,11 @@ void	ft_divideceiling(int i, int k, char **tab, t_data *data)
 		{
 			if (tab[i][k] == 'C' && tab[i][k+1] == ' ')
 			{
+				if (ft_incomplete(i, k, tab) == 1)
+				{
+					printf("Error with RGB input ?");
+					exit(1);
+				}
 				ft_makeceiling(tab, i, k, data);
 				if (i > data->lowhei)
 					data->lowhei = i;

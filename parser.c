@@ -3,51 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ybestrio <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 12:45:12 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/22 20:04:03 by yasinbest        ###   ########.fr       */
+/*   Created: 2022/03/15 10:42:18 by ybestrio          #+#    #+#             */
+/*   Updated: 2022/03/15 10:42:21 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "cub3d.h"
 
 void	ft_cleanpath(char **tab, int ln, int tx, t_data *data)
 {
-	int	i;
-	int	k;
-
-	i = 0;
-	k = 0;
-	while (tab[ln][i] != '.')
+	int i = 0;
+	int k = 0;
+	
+	while(tab[ln][i] != '.')
 		i++;
-	while (tab[ln][i] != 0 && tab[ln][i] != '\n')
+	while(tab[ln][i] != 0 && tab[ln][i] != '\n')
 	{
 		data->txtr[tx][k] = tab[ln][i];
-		i++;
+	   	i++;
 		k++;
 	}
 	data->txtr[tx][k] = 0;
 }
 
+
 void	ft_dividemap(int i, int k, char **tab, t_data *data)
 {
-	int	rest;
-	int	m;
-
+	int rest;
+	int m;
+	
 	m = 0;
 	i = data->lowhei + 1;
 	rest = (data->map_h - i) + 1;
-	data->map = ft_calloc(sizeof(char *), rest + 3);
+	data->map = ft_calloc(sizeof(char *), rest + 3);//protection de malloc
 	while (k < rest)
 	{
 		data->map[k] = ft_calloc(sizeof(char), data->map_l);
 		k++;
 	}
 	k = 0;
-	while (i < data->map_h)
+	while(i < data->map_h)
 	{
-		while (k < data->map_l)
+		while(k < data->map_l)
 		{
 			data->map[m][k] = tab[i][k];
 			k++;
@@ -63,30 +61,33 @@ void	ft_setheight(int i, t_data *data)
 	while (data->map[i] != 0)
 		i++;
 	data->map_h = i;
+
 }
 
 void	ft_dividein3(char **tab, t_data *data)
 {
-	int	i;
-	int	k;
-	int	turn;
-
+	int i;
+	int k;
+	
 	i = 0;
 	k = 0;
-	turn = -1;
-	data->txtr = malloc(sizeof(char *) * 4);
-	while (++turn < 4)
+	data->txtr = malloc(sizeof(char *) * 4); //I could set that in a initiate
+	
+	for(int turn = 0; turn < 4 ; turn++) //supprimer ce for
 		data->txtr[turn] = ft_calloc(sizeof(char), data->map_l + 1);
+	
 	ft_divideno(i, k, tab, data);
 	ft_divideso(i, k, tab, data);
 	ft_dividewe(i, k, tab, data);
 	ft_divideea(i, k, tab, data);
 	ft_dividefloor(i, k, tab, data);
 	ft_divideceiling(i, k, tab, data);
-	ft_dividemap(i, k, tab, data);
+	ft_dividemap(i, k, tab, data);	
 	ft_setheight(i, data);
+	// I NEED TO ADD A FREE FUNCTION FOR THE TAB 2DArray
 	ft_verifrgb(tab, i, k, data);
 	free_tab(tab);
+
 }
 
 void	ft_locatefloor(char **tab, int i, int k, t_data *data)
@@ -95,11 +96,11 @@ void	ft_locatefloor(char **tab, int i, int k, t_data *data)
 	{
 		while (tab[i][k] != '\n')
 		{
-			if (tab[i][k] == 'F' && tab[i][k + 1] == ' ')
+			if (tab[i][k] == 'F' && tab[i][k+1] == ' ')
 			{
 				ft_rgbinvalid(tab, i, k + 1);
 				ft_checkfloor(tab, i, 0);
-				break ;
+				break;
 			}
 			k++;
 		}
@@ -114,11 +115,11 @@ void	ft_locateceiling(char **tab, int i, int k, t_data *data)
 	{
 		while (tab[i][k] != '\n')
 		{
-			if (tab[i][k] == 'C' && tab[i][k + 1] == ' ')
+			if (tab[i][k] == 'C' && tab[i][k+1] == ' ')
 			{
 				ft_rgbinvalid(tab, i, k + 1);
 				ft_checkceiling(tab, i, 0);
-				break ;
+				break;
 			}
 			k++;
 		}
@@ -131,9 +132,11 @@ void	ft_verifrgb(char **tab, int i, int k, t_data *data)
 {
 	ft_locatefloor(tab, i, k, data);
 	ft_locateceiling(tab, i, k, data);
+	//ft_checkfloor(tab, i, k, data);
+//	ft_checkceiling(tab, i, k, data);
 }
 
-void	ft_rgbsize(int r, int g, int b)
+void ft_rgbsize(int r, int g, int b)
 {
 	if (r > 255 || g > 255 || b > 255)
 	{
@@ -147,26 +150,29 @@ void	ft_rgbsize(int r, int g, int b)
 	}
 }
 
-int	ft_skipline(int fd)
+int ft_skipline(int fd)
 {
-	char	*line;
+	char *line;
 
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line[0] != '\n')
-			break ;
+			break;
 	}
-	return (0);
+
+	return 0;
+
 }
 
-void	ft_checkfloor(char **tab, int i, int k) //faire rentrer une struct avec plein de int qui valent 0;
-{
-	char	r[40];
-	char	g[40];
-	char	b[40];
-	int		m;
 
+void	ft_checkfloor(char **tab, int i, int k) // need to rewrite and optimize
+{
+	char r[40];
+	char g[40];
+	char b[40];
+	int m;
+	
 	m = 0;
 	if (tab[i][k] == 'F')
 	{
@@ -192,7 +198,7 @@ void	ft_checkfloor(char **tab, int i, int k) //faire rentrer une struct avec ple
 	ft_rgbsize(atoi(r), atoi(g), atoi(b));
 }
 
-void	ft_checkceiling(char **tab, int i, int k)
+void	ft_checkceiling(char **tab, int i, int k) // need to rewrite and optimize
 {
 	char r[40];
 	char g[40];

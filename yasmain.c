@@ -6,50 +6,89 @@
 /*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:18:03 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/24 11:15:27 by ybestrio         ###   ########.fr       */
+/*   Updated: 2022/03/15 12:09:43 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
+
+void	free_tab(char **tab)
+{
+	size_t	i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+}
 
 void	ft_setrange(char *path, char **tab, t_data *data)
 {
-	t_gnl	gnl;
-
-	ft_setgnl(&gnl, path);
-	while (assign(&gnl) == 1)
+	int		fd;
+	char	*line;
+	size_t		len;
+	int		i;
+	
+	len = 0;
+	i = 0;
+	fd = open(path, O_RDWR); //if open fail fd == -1
+	while ((line = get_next_line(fd))) //if gnl malloc fail return null
 	{
-		if (strlen(gnl.line) > gnl.len)
-			gnl.len = strlen(gnl.line);
-		gnl.i++;
-		free(gnl.line);
+		if (strlen(line) > len)
+			len = strlen(line);
+		i++;
+		free(line);
 	}
-	close(gnl.fd);
-	data->map_h = gnl.i;
-	data->map_l = gnl.len;
-	tab = calloc(sizeof(char *), gnl.i + 1);
-	gnl.fd = open(path, O_RDWR);
-	if (gnl.fd == -1)
-		exit (1);
-	gnl.i = -1;
-	while (assign(&gnl) == 1)
-		tab[++gnl.i] = gnl.line;
-	close(gnl.fd);
-	ft_setup(tab, data, gnl.len);
+	close(fd);
+	data->map_h = i;
+	data->map_l = len;//Probleme possible
+	tab = calloc(sizeof(char *), i + 1);//tab non protege
+	fd = open(path, O_RDWR);//if open fail fd == -1
+	i = -1;
+	while ((line = get_next_line(fd)))
+		tab[++i] = line;
+	close(fd);
+	ft_setup(tab, data, len);
 }
 
 void	ft_setup(char **tab, t_data *data, size_t len)
 {
 	len = 0;
+//	ft_exception(tab, data, len);
 	ft_dividein3(tab, data);
 	ft_error(data);
 }
 
-void	yasin(t_data *data, int argc, char **argv)
+void	ft_nameissues(char *str)
 {
-	char	**tab;
+	int i;
 
-	tab = NULL;
+	i = ft_strlen(str);
+	if (i < 5)
+	{
+		printf("Error in file name, too short ?\n");
+		exit(1);
+	}
+	if (str[i - 4] != '.' && str[i - 3] != 'c' && str[i - 2] != 'u')
+	{
+		printf("Invalid extension ?");
+		exit(1);
+	}
+	if (str[i - 1] != 'b')
+	{
+		printf("Invalid extension ?");
+		exit(1);
+	}
+}
+
+void yasin(t_data *data, int argc, char **argv)
+{
+	char **tab = NULL;
+
 	data->argc = argc;
 	data->lowhei = 0;
+
+	ft_nameissues(argv[1]);
 	ft_setrange(argv[1], tab, data);
+	//ft_images(data);//matrix
 }

@@ -6,9 +6,11 @@
 /*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 12:24:53 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/02/24 11:26:28 by ybestrio         ###   ########.fr       */
+/*   Updated: 2022/02/21 12:44:11 by tmartial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 #include "cub3d.h"
 
 int	create_rgb(int r, int g, int b)
@@ -16,12 +18,12 @@ int	create_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-void	ft_makefloor(char **tab, int i, int k, t_data *data)
+void	ft_makefloor(char **tab, int i, int k, t_data *data) // need to rewrite and optimize
 {
-	char	r[4];
-	char	g[4];
-	char	b[4];
-	int		m;
+	char r[4];
+	char g[4];
+	char b[4];
+	int m;
 	
 	m = 0;
 	if (tab[i][k] == 'F')
