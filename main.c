@@ -6,9 +6,10 @@
 /*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:24:27 by tmartial          #+#    #+#             */
-/*   Updated: 2022/03/29 14:44:13 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/05/04 10:57:31 by ybestrio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	main(int argc, char **argv)

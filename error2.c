@@ -3,13 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybestrio <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 11:21:39 by ybestrio          #+#    #+#             */
-/*   Updated: 2022/02/24 11:21:49 by ybestrio         ###   ########.fr       */
+/*   Created: 2022/03/29 17:14:55 by yasinbest         #+#    #+#             */
+/*   Updated: 2022/03/29 17:15:09 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
+
+void	ft_checkwall(char c, int i, int k, t_data *data)
+{
+	if (c == '0' || c == 'N' || c == 'E' || c == 'W' || c == 'S')
+	{
+		if (data->map[i][k - 1] != '0' && data->map[i][k - 1] != '1' &&
+				data->map[i][k - 1] != 'N' && data->map[i][k - 1] != 'W' &&
+				data->map[i][k - 1] != 'E' && data->map[i][k - 1] != 'S')
+			ft_maperror();
+		if (data->map[i][k + 1] != '0' && data->map[i][k + 1] != '1' &&
+				data->map[i][k + 1] != 'N' && data->map[i][k + 1] != 'W' &&
+				data->map[i][k + 1] != 'E' && data->map[i][k + 1] != 'S')
+			ft_maperror();
+		if (data->map[i - 1][k] != '0' && data->map[i - 1][k] != '1' &&
+				data->map[i - 1][k] != 'N' && data->map[i - 1][k] != 'W' &&
+				data->map[i - 1][k] != 'E' && data->map[i - 1][k] != 'S')
+			ft_maperror();
+		if (data->map[i + 1][k] != '0' && data->map[i + 1][k] != '1' &&
+				data->map[i + 1][k] != 'N' && data->map[i + 1][k] != 'W' &&
+				data->map[i + 1][k] != 'E' && data->map[i + 1][k] != 'S')
+			ft_maperror();
+	}
+}
 
 void	ft_error(t_data *data)
 {
