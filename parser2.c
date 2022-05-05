@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
+/*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 17:04:06 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/05/04 11:46:01 by ybestrio         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:50:45 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	ft_rgbsize(int r, int g, int b)
@@ -38,59 +39,59 @@ int	ft_skipline(int fd)
 	return (0);
 }
 
-void	ft_checkfloor(char **tab, int i, int k, int m)
+void	ft_checkfloor(char **t, int i, int k, int m)
 {
 	char	r[40];
 	char	g[40];
 	char	b[40];
-	
-	if (tab[i][k++] == 'F')
+
+	if (t[i][k++] == 'F')
 	{
-		while (tab[i][k] == ' ')
+		while (t[i][k] == ' ')
 			k++;
-		while (tab[i][k] != ',' && tab[i][k] != ' ')
-			r[m++] = tab[i][k++];
+		while (t[i][k] != ',' && t[i][k] != ' ')
+			r[m++] = t[i][k++];
 		r[m] = 0;
 		m = 0;
-		while (tab[i][k] == ' ' || tab[i][k] == ',')
+		while (t[i][k] == ' ' || t[i][k] == ',')
 			k++;
-		while (tab[i][k] != ',' && tab[i][k] != ' ')
-			g[m++] = tab[i][k++];
+		while (t[i][k] != ',' && t[i][k] != ' ')
+			g[m++] = t[i][k++];
 		g[m] = 0;
 		m = 0;
-		while (tab[i][k] == ' ' || tab[i][k] == ',')
+		while (t[i][k] == ' ' || t[i][k] == ',')
 			k++;
-		while (tab[i][k] != ',' && tab[i][k] != ' ' && tab[i][k] != '\n')
-			b[m++] = tab[i][k++];
+		while (t[i][k] != 44 && t[i][k] != 32 && t[i][k] != '\n' && t[i][k + 1])
+			b[m++] = t[i][k++];
 		b[m] = 0;
 	}
 	ft_rgbsize(atoi(r), atoi(g), atoi(b));
 }
 
-void	ft_checkceiling(char **tab, int i, int k, int m)
+void	ft_checkceiling(char **t, int i, int k, int m)
 {
 	char	r[40];
 	char	g[40];
 	char	b[40];
 
-	if (tab[i][k++] == 'C')
+	if (t[i][k++] == 'C')
 	{
-		while (tab[i][k] == ' ')
+		while (t[i][k] == ' ')
 			k++;
-		while (tab[i][k] != ',' && tab[i][k] != ' ')
-			r[m++] = tab[i][k++];
+		while (t[i][k] != ',' && t[i][k] != ' ')
+			r[m++] = t[i][k++];
 		r[m] = 0;
 		m = 0;
-		while (tab[i][k] == ' ' || tab[i][k] == ',')
+		while (t[i][k] == ' ' || t[i][k] == ',')
 			k++;
-		while (tab[i][k] != ',' && tab[i][k] != ' ')
-			g[m++] = tab[i][k++];
+		while (t[i][k] != ',' && t[i][k] != ' ')
+			g[m++] = t[i][k++];
 		g[m] = 0;
 		m = 0;
-		while (tab[i][k] == ' ' || tab[i][k] == ',')
+		while (t[i][k] == ' ' || t[i][k] == ',')
 			k++;
-		while (tab[i][k] != ',' && tab[i][k] != ' ' && tab[i][k] != '\n')
-			b[m++] = tab[i][k++];
+		while (t[i][k] != 44 && t[i][k] != 32 && t[i][k] != '\n' && t[i][k + 1])
+			b[m++] = t[i][k++];
 		b[m] = 0;
 	}
 	ft_rgbsize(atoi(r), atoi(g), atoi(b));

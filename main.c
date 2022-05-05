@@ -6,7 +6,7 @@
 /*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:24:27 by tmartial          #+#    #+#             */
-/*   Updated: 2022/05/04 10:57:31 by ybestrio         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:37:27 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,17 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc != 2)
+	{
+		write(1, "Need good args\n", 15);
 		exit(0);
+	}
 	yasin(&data, argc, argv);
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, 800, 800, "cub3d");
 	data.img = mlx_new_image(data.mlx, 800, 800);
 	data.addr = mlx_get_data_addr(data.img, &data.b_pix,
 			&data.len_pix, &data.endian);
-	data.press = 0;
-	if (open(data.txtr[0], O_RDWR) == -1)
-	{
-		printf("Texture failure\n");
-		exit(1);
-	}
-	if (open(data.txtr[1], O_RDWR) == -1)
-	{
-		printf("Texture failure\n");
-		exit(1);
-	}
-	if (open(data.txtr[2], O_RDWR) == -1)
-	{
-		printf("Texture failure\n");
-		exit(1);
-	}
-	if (open(data.txtr[3], O_RDWR) == -1)
-	{
-		printf("Texture failure\n");
-		exit(1);
-	}
+	ft_opencheck(&data);
 	sprites_init(&data);
 	make_player(&data);
 	mlx_hook(data.win, 2, 1L << 0, presskey, &data);

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yasinbestrioui <marvin@42.fr>              +#+  +:+       +#+        */
+/*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 17:04:46 by yasinbest         #+#    #+#             */
-/*   Updated: 2022/05/04 13:10:22 by ybestrio         ###   ########.fr       */
+/*   Updated: 2022/05/05 21:14:02 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	ft_dividein3(char **tab, t_data *data)
@@ -39,29 +40,23 @@ void	ft_dividein3(char **tab, t_data *data)
 	free_tab(tab);
 }
 
-void	ft_empty(char **tab, int i, int k)
+void	ft_empty(char **tab, int i, int k, int counter)
 {
-	int counter;
-	int commas;
+	int	commas;
 
-	counter = 0;
 	commas = 0;
-	while (tab[i][k] != '\n')
+	while (tab[i][k] != '\n' && tab[i][k])
 	{
-		while (tab[i][k] != '\n')
+		while (tab[i][k] != '\n' && tab[i][k])
 		{
 			if (tab[i][k] == ',')
-			{
-				commas++;
-				k++;
-			}	
+				ft_afou(&commas, &k);
 			while (tab[i][k] >= 48 && tab[i][k] <= 57)
 			{
 				if (tab[i][k + 1] < 48 || tab[i][k + 1] > 57)
 				{
-					counter++;
-					k++;
-					break;
+					ft_losstime(&counter, &k);
+					break ;
 				}
 				k++;
 			}
@@ -71,24 +66,23 @@ void	ft_empty(char **tab, int i, int k)
 		if (tab[i][k] != '\n')
 			k++;
 	}
-	if (counter != 3 || commas != 2)
-	{
-		printf("RGB error, missing ?\n");
-		exit(1);
-	}
+	ft_enroule(counter, commas);
 }
 
 void	ft_locatefloor(char **tab, int i, int k, t_data *data)
 {
 	int	m;
+	int	counter;
+
+	counter = 0;
 	m = 0;
 	while (i < data->map_h)
 	{
-		while (tab[i][k] != '\n')
+		while (tab[i][k] != '\n' && tab[i][k])
 		{
 			if (tab[i][k] == 'F' && tab[i][k + 1] == ' ')
 			{
-				ft_empty(tab, i, 0);
+				ft_empty(tab, i, 0, counter);
 				ft_rgbinvalid(tab, i, k + 1);
 				ft_checkfloor(tab, i, 0, m);
 				break ;
@@ -103,15 +97,17 @@ void	ft_locatefloor(char **tab, int i, int k, t_data *data)
 void	ft_locateceiling(char **tab, int i, int k, t_data *data)
 {
 	int	m;
+	int	counter;
 
 	m = 0;
+	counter = 0;
 	while (i < data->map_h)
 	{
-		while (tab[i][k] != '\n')
+		while (tab[i][k] != '\n' && tab[i][k])
 		{
 			if (tab[i][k] == 'C' && tab[i][k + 1] == ' ')
 			{
-				ft_empty(tab, i, 0);
+				ft_empty(tab, i, 0, counter);
 				ft_rgbinvalid(tab, i, k + 1);
 				ft_checkceiling(tab, i, 0, m);
 				break ;

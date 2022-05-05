@@ -6,7 +6,7 @@
 /*   By: tmartial <tmartial@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 10:24:21 by tmartial          #+#    #+#             */
-/*   Updated: 2022/05/02 17:35:35 by tmartial         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:32:53 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,14 @@ typedef struct s_ray {
 	float	fmaxdistance;
 	float	fdistance;
 }				t_ray;
+
+typedef struct s_rev {
+	char	c;
+	int		k;
+	int		m;
+	int		max;
+	int		len;
+}				t_rev;
 
 /* data divider */
 void	ft_divideno(int i, int k, char **tab, t_data *data);
@@ -200,10 +208,22 @@ void	sprites_init(t_data *data);
 
 /* yasin main */
 void	free_tab(char **tab);
-int		ft_control(int fd, char *line);
+int		ft_control(int fd, char **line);
 void	ft_setrange(char *path, char **tab, t_data *data);
 void	ft_setup(char **tab, t_data *data, size_t len);
 void	ft_nameissues(char *str);
-void	ft_revlines(t_data *data, int i);
+void	ft_opencheck(t_data *data);
+void	ft_revlines(t_data *data, int i, t_rev *rev);
 void	yasin(t_data *data, int argc, char **argv);
+
+/* spacegain.c */
+void	ft_enroule(int counter, int commas);
+void	ft_afou(int *commas, int *k);
+void	ft_losstime(int *counter, int *k);
+void	ft_boring(t_data *data, int i, t_rev *r);
+
+/* spacegain2.c */
+
+void	ft_25line(size_t *len, int *i);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: ybestrio <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:42:29 by ybestrio          #+#    #+#             */
-/*   Updated: 2022/03/29 23:46:25 by yasinbest        ###   ########.fr       */
+/*   Updated: 2022/05/05 20:36:38 by yasinbest        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -26,7 +26,6 @@ void	ft_forbiddenmap(t_data *data)
 			ft_checkcount(data->map[i][k], data);
 			ft_checkprechar(data->map[i][k]);
 			ft_checkwall(data->map[i][k], i, k, data);
-		//	ft_setposition(data, i, k);
 			k++;
 		}
 		k = 0;
